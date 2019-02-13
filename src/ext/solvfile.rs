@@ -9,7 +9,7 @@ use std::io::Read;
 use std::io;
 use std::mem;
 
-use ::errors::*;
+use crate::errors::*;
 
 pub struct SolvFile {
     pub(crate) _fp: *mut FILE,

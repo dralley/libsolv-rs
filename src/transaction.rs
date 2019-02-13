@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use ::pool::Pool;
+use crate::pool::Pool;
 use libsolv_sys::Transaction as _Transaction;
 
 pub struct Transaction {

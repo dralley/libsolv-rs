@@ -1,4 +1,4 @@
-use Map;
+use crate::Map;
 use libc::c_int;
 
 extern "C" {

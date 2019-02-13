@@ -6,10 +6,10 @@ use std::mem;
 use std::iter::Iterator;
 use std::marker::PhantomData;
 use libc;
-use ::pool::Pool;
-use ::chksum::Chksum;
+use crate::pool::Pool;
+use crate::chksum::Chksum;
 use libsolv_sys::{Repo as _Repo, Dataiterator as _Dataiterator, Datapos as _Datapos};
-use ::{Id, solv_knownid};
+use crate::{Id, solv_knownid};
 use std::fmt::Display;
 use std::fmt;
 

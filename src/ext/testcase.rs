@@ -1,16 +1,16 @@
 use std::path::Path;
-use ::solver::Solver;
+use crate::solver::Solver;
 use libsolv_sys::Solver as _Solver;
 use libsolv_sys::solv_free;
-use ::pool::PoolContext;
-use ::queue::Queue;
+use crate::pool::PoolContext;
+use crate::queue::Queue;
 use std::ptr;
 use std::ffi::CString;
 use libc::{c_char, c_int, FILE};
-use ownership::SolvTake;
+use crate::ownership::SolvTake;
 use libc;
 
-use ::errors::*;
+use crate::errors::*;
 
 pub fn read<P: AsRef<Path>>(pool: &PoolContext, path: P, job: &mut Queue) -> Result<(Solver, CString, c_int)> {
     use libsolvext_sys::testcase_read;

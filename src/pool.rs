@@ -1,10 +1,10 @@
 use std::cell::{RefCell, Ref, RefMut};
 use std::rc::Rc;
 use libsolv_sys::{Pool as PoolT, s_Pool, s_Repodata};
-use ::solver::Solver;
-use ::repo::{Repo, RepoDataRef};
+use crate::solver::Solver;
+use crate::repo::{Repo, RepoDataRef};
 use std::ffi::CString;
-use ::transaction::Transaction;
+use crate::transaction::Transaction;
 use std::marker::PhantomData;
 use std::ptr;
 use std::mem;

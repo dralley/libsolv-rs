@@ -132,7 +132,7 @@ impl fmt::Debug for Queue {
 
 #[cfg(test)]
 mod tests {
-    use queue::*;
+    use crate::queue::*;
 
     #[test]
     fn init_and_free() {
