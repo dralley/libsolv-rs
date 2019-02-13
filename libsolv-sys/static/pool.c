@@ -3,6 +3,9 @@
 Solvable *e_pool_id2solvable(const Pool *pool, Id p) {
     return pool_id2solvable(pool, p);
 }
+Id e_pool_solvable2id(const Pool *pool, Solvable *s) {
+    return pool_solvable2id(pool, s);
+}
 const char *e_pool_solvid2str(Pool *pool, Id p) {
     return pool_solvid2str(pool, p);
 }

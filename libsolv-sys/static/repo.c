@@ -6,9 +6,15 @@ const char *e_repo_name(const Repo *repo) {
 Repo *e_pool_id2repo(Pool *pool, Id repoid) {
     return pool_id2repo(pool, repoid);
 }
+int e_pool_badarch_solvable(const Pool *pool, Solvable *s) {
+    return pool_badarch_solvable(pool, s);
+}
 int e_pool_disabled_solvable(const Pool *pool, Solvable *s) {
     return pool_disabled_solvable(pool, s);
 }
 int e_pool_installable(const Pool *pool, Solvable *s) {
     return pool_installable(pool, s);
+}
+Solvable *e_solvable_free(Solvable *s, int reuseids) {
+    return solvable_free(s, reuseids);
 }
