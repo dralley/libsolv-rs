@@ -120,7 +120,7 @@ impl RepoDataPos {
 
     pub fn checksum(&self) -> Option<*mut s_Chksum> {
         let repo: &mut Repo = unsafe {&mut *self.pos.repo};
-        let _pool: &mut _Pool = unsafe{&mut *repo.pool};
+        let _pool: &mut s_Pool = unsafe{&mut *repo.pool};
         let old_pos = _pool.pos;
         _pool.pos = self.pos;
         let mut type_id = 0;
@@ -153,7 +153,7 @@ fn find(pool: *mut Pool, repo: *mut Repo, what: &CStr) -> (Option<CString>, Opti
     (lookup_cstr, lookup_chksum)
 }
 
-unsafe fn load_repo(pool: *mut _Pool, path: &CStr) {
+unsafe fn load_repo(pool: *mut s_Pool, path: &CStr) {
     let readonly = CString::new("r").unwrap();
     let repomd_fp = solv_xfopen(path.as_ptr(), readonly.as_ptr());
     assert!(!repomd_fp.is_null());
