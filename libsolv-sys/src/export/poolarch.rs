@@ -1,4 +1,4 @@
-use {Pool, Solvable, Id};
+use crate::{Pool, Solvable, Id};
 use libc::{c_uchar, c_int};
 
 extern "C" {

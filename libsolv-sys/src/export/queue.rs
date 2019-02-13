@@ -1,4 +1,4 @@
-use {Queue, Id};
+use crate::{Queue, Id};
 use libc::c_int;
 
 extern "C" {

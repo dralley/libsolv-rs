@@ -3,6 +3,7 @@ name = "libsolv-sys"
 description = "Raw libsolv bindings for Rust, used internally rust-libsolv"
 repository = "https://github.com/ignatenkobrain/libsolv-rs"
 version = "0.0.1"
+edition = "2018"
 authors = ["Igor Gnatenko <ignatenko@redhat.com>", "Adam Baxter"]
 license = "MIT"
 build = "build.rs"

@@ -1,4 +1,4 @@
-use {Repodata, Repokey, Id};
+use crate::{Repodata, Repokey, Id};
 use libc::c_int;
 
 extern "C" {

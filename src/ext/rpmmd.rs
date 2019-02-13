@@ -1,7 +1,7 @@
-use ::repo::Repo;
+use crate::repo::Repo;
 use libc;
 use std::ptr;
-use ::ext::solvfile::*;
+use crate::ext::solvfile::*;
 
 pub trait RpmMd {
 

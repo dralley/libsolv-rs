@@ -1,5 +1,3 @@
-extern crate libc;
-extern crate libsolv;
 
 use std::fs::File;
 use std::io::BufReader;

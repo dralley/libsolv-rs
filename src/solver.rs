@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use ::pool::Pool;
-use ::queue::Queue;
+use crate::pool::Pool;
+use crate::queue::Queue;
 use libsolv_sys::Solver as _Solver;
 use libc;
 

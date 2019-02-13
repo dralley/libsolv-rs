@@ -1,4 +1,4 @@
-use {Stringpool, Id};
+use crate::{Stringpool, Id};
 use libc::c_char;
 
 extern "C" {

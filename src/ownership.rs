@@ -5,7 +5,7 @@ use libsolv_sys::solv_free;
 use std::ptr;
 use std::marker;
 
-use ::errors::*;
+use crate::errors::*;
 
 pub trait SolvTake {
     type Input;

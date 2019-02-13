@@ -58,7 +58,7 @@ use libsolv_sys::solver_free;
 use libsolv_sys::solv_chksum_free;
 use libsolv_sys::REPODATA_STUB;
 
-pub type LoadCallback = Option<Box<Fn(_Repodata)>>;
+pub type LoadCallback = Option<Box<Fn(s_Repodata)>>;
 
 pub struct PoolContext {
     pool_rc: Rc<RefCell<PoolHandle>>,
@@ -98,7 +98,7 @@ impl PoolHandle {
         mem::replace(self.callback.as_mut(), None);
     }
 
-    pub fn set_loadcallback<F: 'static + Fn(_Repodata)>(&mut self, cb: F) {
+    pub fn set_loadcallback<F: 'static + Fn(s_Repodata)>(&mut self, cb: F) {
         use libsolv_sys::pool_setloadcallback;
         mem::replace(self.callback.as_mut(), Some(Box::new(cb)));
         let cb_ptr = &mut *self.callback as *mut LoadCallback as *mut libc::c_void;
@@ -315,7 +315,7 @@ pub struct RepoDataMatch<'a> {
 
 impl<'a> RepoDataMatch<'a> {
     pub fn parent_pos(&mut self) -> RepoDataPos {
-        let _pool: &mut _Pool = unsafe { &mut *self.ndi.pool };
+        let _pool: &mut s_Pool = unsafe { &mut *self.ndi.pool };
         let old_pos = _pool.pos;
         unsafe { dataiterator_setpos_parent(&mut *self.ndi) };
         let pos = _pool.pos;
@@ -339,7 +339,7 @@ impl<'a> RepoDataPos<'a> {
 
     pub fn location(&self) -> Option<CString> {
         let repo: &mut Repo = unsafe {&mut *self.pos.repo};
-        let _pool: &mut _Pool = unsafe{&mut *repo.pool};
+        let _pool: &mut s_Pool = unsafe{&mut *repo.pool};
         let old_pos = _pool.pos;
         _pool.pos = self.pos;
         let cstr = unsafe {pool_lookup_str(_pool, SOLVID_POS, solv_knownid::REPOSITORY_REPOMD_LOCATION as Id)};
@@ -355,9 +355,9 @@ impl<'a> RepoDataPos<'a> {
         }
     }
 
-    pub fn checksum(&self) -> Option<*mut _Chksum> {
+    pub fn checksum(&self) -> Option<*mut s_Chksum> {
         let repo: &mut Repo = unsafe {&mut *self.pos.repo};
-        let _pool: &mut _Pool = unsafe{&mut *repo.pool};
+        let _pool: &mut s_Pool = unsafe{&mut *repo.pool};
         let old_pos = _pool.pos;
         _pool.pos = self.pos;
         let mut type_id = 0;
@@ -403,7 +403,7 @@ impl<'a> RepoDataHandle<'a> {
         unsafe{repodata_set_str(self.repodata.as_ptr(), self.handle_id, keyname as Id, string.as_ref().as_ptr())};
     }
 
-    pub fn set_checksum(&mut self, keyname: solv_knownid, chksum: *mut _Chksum) {
+    pub fn set_checksum(&mut self, keyname: solv_knownid, chksum: *mut s_Chksum) {
         unsafe {
             let chksum_buf = solv_chksum_get(chksum, ptr::null_mut());
             let chksum_type = solv_chksum_get_type(chksum);
@@ -424,7 +424,7 @@ impl<'a> RepoDataHandle<'a> {
     }
 }
 
-fn find(repo: &RepoHandle, what: &str) -> (Option<CString>, Option<*mut _Chksum>){
+fn find(repo: &RepoHandle, what: &str) -> (Option<CString>, Option<*mut s_Chksum>){
     let mut lookup_cstr = None;
     let mut lookup_chksum = None;
 
@@ -448,7 +448,7 @@ fn find(repo: &RepoHandle, what: &str) -> (Option<CString>, Option<*mut _Chksum>
 
 fn updateaddedprovides(pool: &mut PoolHandle, repo: &mut RepoHandle, addwhatprovies: &mut Queue) {
     let repo_ref: &mut Repo = unsafe {&mut *repo.as_ptr()};
-    let _pool: &mut _Pool = unsafe{&mut *repo_ref.pool};
+    let _pool: &mut s_Pool = unsafe{&mut *repo_ref.pool};
     if repo_ref.nsolvables == 0 {
         println!("0 nsolvables");
         return;
@@ -574,7 +574,7 @@ fn box_callback<F: 'static + Fn(Repodata)>(cb: F) -> Box<LoadCallback> {
     Box::new(Some(Box::new(cb)))
 }
 
-unsafe extern "C" fn loadcallback(_p: *mut _Pool, _rd: *mut _Repodata, _d: *mut libc::c_void) -> libc::c_int {
+unsafe extern "C" fn loadcallback(_p: *mut s_Pool, _rd: *mut s_Repodata, _d: *mut libc::c_void) -> libc::c_int {
     let cb = _d as *const LoadCallback;
     println!("Entering callback function");
     if let Some(ref function) = *cb {

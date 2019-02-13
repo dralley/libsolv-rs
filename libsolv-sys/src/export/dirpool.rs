@@ -1,4 +1,4 @@
-use {Dirpool, Id};
+use crate::{Dirpool, Id};
 
 extern "C" {
     pub fn e_dirpool_parent(dp: *const Dirpool, did: Id) -> Id;
