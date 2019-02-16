@@ -1,31 +1,29 @@
-extern crate libc;
-extern crate libsolv;
-extern crate libsolv_sys;
-extern crate libsolvext_sys;
-
+use std::cell::{RefCell, Ref, RefMut};
 use std::ffi::{CStr, CString};
 use std::fs::File;
-use std::os::unix::io::*;
-use std::ptr;
 use std::mem;
-use std::slice;
+use std::os::unix::io::*;
 use std::path::{Path, PathBuf};
-use libsolv::chksum::Chksum;
-use std::cell::{RefCell, Ref, RefMut};
+use std::ptr;
+use std::slice;
 use std::rc::Rc;
 
 use libc::FILE;
 
+use libc;
+use libsolv;
+use libsolv_sys;
+use libsolvext_sys;
+
+use libsolv::chksum::Chksum;
 use libsolv_sys::{s_Pool, Pool, Dataiterator};
 use libsolv_sys::{pool_create, pool_setdebuglevel, pool_setloadcallback};
 use libsolv_sys::pool_free;
 use libsolv_sys::pool_setarch;
-use libsolvext_sys::solv_xfopen_fd;
 use libsolv_sys::Repo;
 use libsolv_sys::s_Chksum;
 use libsolv_sys::repo_create;
 use libsolv_sys::repo_free;
-use libsolvext_sys::{repo_add_repomdxml, repo_add_rpmmd, repo_add_repodata};
 use libsolv_sys::{SEARCH_STRING, SOLVID_META};
 use libsolv_sys::{solv_knownid, Id};
 use libsolv_sys::dataiterator_free;
@@ -57,6 +55,8 @@ use libsolv_sys::solver_create;
 use libsolv_sys::solver_free;
 use libsolv_sys::solv_chksum_free;
 use libsolv_sys::REPODATA_STUB;
+use libsolvext_sys::{repo_add_repomdxml, repo_add_rpmmd, repo_add_repodata};
+use libsolvext_sys::solv_xfopen_fd;
 
 pub type LoadCallback = Option<Box<Fn(s_Repodata)>>;
 

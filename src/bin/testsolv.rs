@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::BufReader;
 use std::io::BufRead;
 use std::path::{Path, PathBuf};
+
 use libsolv::ext::testcase;
 use libsolv::queue::Queue;
 use libsolv::pool::{PoolContext, Pool};

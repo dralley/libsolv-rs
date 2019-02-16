@@ -1,21 +1,19 @@
-
-extern crate libc;
-extern crate libsolv;
-
 #[macro_use]
 extern crate clap;
 
-use std::rc::Rc;
 use std::cell::{RefCell, Ref, RefMut};
 use std::collections::HashMap;
+use std::io::{Cursor, Read};
+use std::ffi::CString;
+use std::fs::File;
+use std::path::{Path, PathBuf};
+use std::ptr;
+use std::rc::Rc;
+
 use clap::App;
+use libc;
 use libsolv::pool::PoolContext;
 use libsolv::repo::{Repo, SEARCH_STRING, SOLVID_META};
-use std::path::{Path, PathBuf};
-use std::fs::File;
-use std::ffi::CString;
-use std::ptr;
-use std::io::{Cursor, Read};
 use libsolv::chksum::Chksum;
 use libsolv::ext::solvfile::*;
 use libsolv::ext::rpmmd::*;

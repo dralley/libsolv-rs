@@ -1,15 +1,19 @@
 
 use libsolv_sys::Chksum as _Chksum;
 use libsolv_sys::Id;
+use libsolv_sys::solv_chksum_free;
+use libsolv_sys::solv_knownid;
+
+use std::convert::Into;
+use std::io::{Cursor, Seek, SeekFrom, Read, BufReader};
+use std::fs::File;
+use std::os::unix::io::*;
 use std::ptr;
 use std::mem;
-use libsolv_sys::solv_knownid;
 use std::slice;
+
 use libc;
-use std::fs::File;
-use std::io::{Cursor, Seek, SeekFrom, Read, BufReader};
-use std::os::unix::io::*;
-use std::convert::Into;
+
 
 pub struct Chksum {
     _c: *mut _Chksum,
@@ -100,7 +104,6 @@ impl Into<Box<[u8]>> for Chksum {
 
 impl Drop for Chksum {
     fn drop(&mut self) {
-        use libsolv_sys::solv_chksum_free;
         unsafe {solv_chksum_free(self._c, ptr::null_mut() as *mut u8)};
     }
 }

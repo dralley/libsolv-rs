@@ -1,22 +1,19 @@
-extern crate libc;
-extern crate libsolv_sys;
-extern crate libsolvext_sys;
-
 use std::ffi::{CStr, CString};
 use std::ptr;
 use std::mem;
 use std::slice;
 
+use libc;
+use libsolv_sys;
+use libsolvext_sys;
 use libsolv_sys::{s_Pool, Pool, Dataiterator, Datapos};
 use libsolv_sys::{pool_create, pool_setdebuglevel};
 use libsolv_sys::pool_free;
 use libsolv_sys::pool_setarch;
-use libsolvext_sys::solv_xfopen;
 use libsolv_sys::Repo;
 use libsolv_sys::s_Chksum;
 use libsolv_sys::repo_create;
 use libsolv_sys::repo_free;
-use libsolvext_sys::repo_add_repomdxml;
 use libsolv_sys::{SEARCH_STRING, SOLVID_META};
 use libsolv_sys::{solv_knownid, Id};
 use libsolv_sys::dataiterator_free;
@@ -27,6 +24,8 @@ use libsolv_sys::{dataiterator_init_clone, dataiterator_strdup};
 use libsolv_sys::dataiterator_setpos_parent;
 use libsolv_sys::{SOLVID_POS, pool_lookup_str, pool_lookup_bin_checksum, solv_chksum_create_from_bin};
 use libsolv_sys::solv_chksum_free;
+use libsolvext_sys::repo_add_repomdxml;
+use libsolvext_sys::solv_xfopen;
 
 #[derive(Debug)]
 struct RepoDataIterator {
