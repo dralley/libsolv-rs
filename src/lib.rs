@@ -4,11 +4,12 @@
 #[macro_use]
 extern crate error_chain;
 
-extern crate libc;
-extern crate libsolv_sys;
+use libc;
+use libsolv_sys;
 
 #[cfg(feature = "ext")]
-extern crate libsolvext_sys;
+use libsolvext_sys;
+
 
 pub mod errors {
     // Create the Error, ErrorKind, ResultExt, and Result types

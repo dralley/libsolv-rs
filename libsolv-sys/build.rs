@@ -1,10 +1,9 @@
-extern crate bindgen;
-extern crate cc;
-extern crate pkg_config;
-
 use std::env;
 use std::path::PathBuf;
 
+use bindgen;
+use cc;
+use pkg_config;
 
 fn main() {
 
@@ -20,8 +19,6 @@ fn main() {
         .file("static/repodata.c")
         .file("static/strpool.c")
         .compile("libsolv-static-functions.a");
-
-    //pkg_config::probe_library("libsolvext").unwrap();
 
     // Direct Cargo to link the libsolv library
     pkg_config::probe_library("libsolv").unwrap();

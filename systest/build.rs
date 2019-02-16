@@ -1,4 +1,4 @@
-extern crate ctest;
+use ctest;
 
 fn main() {
     let mut cfg = ctest::TestGenerator::new();

@@ -1,9 +1,9 @@
-extern crate bindgen;
-extern crate cc;
-extern crate pkg_config;
-
 use std::env;
 use std::path::PathBuf;
+
+use bindgen;
+use cc;
+use pkg_config;
 
 
 fn main() {
