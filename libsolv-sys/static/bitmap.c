@@ -20,3 +20,7 @@ int e_map_tst(Map *m, int n)
 {
   return map_tst(m, n);
 }
+void e_map_clr_at(Map *m, int n)
+{
+  return map_clr_at(m, n);
+}
