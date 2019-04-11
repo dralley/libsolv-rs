@@ -1,10 +1,11 @@
-use libc;
 use std::ffi::CString;
 use std::slice;
-use libsolv_sys::solv_free;
 use std::ptr;
 use std::marker;
 
+use libc;
+
+use libsolv_sys::solv_free;
 use crate::errors::*;
 
 pub trait SolvTake {
@@ -24,7 +25,7 @@ impl SolvTake for CString {
         let cstr = CString::new(slice);
         solv_free(*ptr as *mut libc::c_void);
         *ptr = ptr::null();
-        cstr.chain_err(|| "invalid cstr ptr")
+        Ok(cstr.expect("invalid cstr ptr"))
     }
 
     unsafe fn solv_take_mut(ptr: &mut *mut Self::Input) -> Result<Self> where Self: marker::Sized {
@@ -33,6 +34,6 @@ impl SolvTake for CString {
         let cstr = CString::new(slice);
         solv_free(*ptr as *mut libc::c_void);
         *ptr = ptr::null_mut();
-        cstr.chain_err(|| "invalid cstr ptr")
+        Ok(cstr.expect("invalid cstr ptr"))
     }
 }

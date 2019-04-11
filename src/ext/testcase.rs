@@ -8,20 +8,22 @@ use std::ptr;
 use std::ffi::CString;
 use libc::{c_char, c_int, FILE};
 use crate::ownership::SolvTake;
+use crate::errors::LibsolvError;
 use libc;
 
 use crate::errors::*;
 
-pub fn read<P: AsRef<Path>>(pool: &PoolContext, path: P, job: &mut Queue) -> Result<(Solver, CString, c_int)> {
+pub fn read<P>(pool: &PoolContext, path: P, job: &mut Queue) -> Result<(Solver, CString, c_int)>
+    where P: AsRef<Path> {
+
     use libsolvext_sys::testcase_read;
 
     let fp: *mut FILE = ptr::null_mut();
     let mut resultp: *mut c_char = ptr::null_mut();
     let mut resultflagsp: c_int = 0;
 
-    let path_str = path.as_ref().to_str()
-        .ok_or_else(|| format!("Cannot describe path {:?} as str", path.as_ref()))?;
-    let testcase = CString::new(path_str)?;
+    let path_str: &str = path.as_ref().to_str().expect(&format!("Cannot describe path {:?} as str", path.as_ref()));
+    let testcase = CString::new(path_str).expect("invalid cstr");
     let solver: *mut _Solver = {
         let borrow = pool.borrow_mut();
         unsafe {testcase_read(borrow._p, fp, testcase.as_ptr(), &mut job._q, &mut resultp, &mut resultflagsp)}

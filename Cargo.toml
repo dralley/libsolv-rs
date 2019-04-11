@@ -27,7 +27,6 @@ appdata = ["ext"]
 [dependencies]
 libsolv-sys = { path = "libsolv-sys" }
 libsolvext-sys = { path = "libsolvext-sys", optional = true}
-error-chain = "0.12"
 libc = "0.2.51"
 clap = {version = "2.33.0", optional = true}
 

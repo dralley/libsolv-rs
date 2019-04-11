@@ -1,25 +1,10 @@
-// `error_chain!` can recurse deeply
-#![recursion_limit = "1024"]
-
-#[macro_use]
-extern crate error_chain;
-
 use libc;
 use libsolv_sys;
 
 #[cfg(feature = "ext")]
 use libsolvext_sys;
 
-
-pub mod errors {
-    // Create the Error, ErrorKind, ResultExt, and Result types
-    error_chain! {
-        foreign_links {
-            Nul(::std::ffi::NulError);
-        }
-    }
-}
-
+pub mod errors;
 pub mod chksum;
 pub mod pool;
 pub mod queue;

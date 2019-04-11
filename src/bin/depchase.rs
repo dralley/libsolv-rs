@@ -183,7 +183,7 @@ fn setup_repos(arch: &str, conf_file: &str, pool_context: &PoolContext) -> Resul
 }
 
 fn main() {
-    let matches = clap_app!(deepchase =>
+    let matches = clap_app!(depchase =>
         (version: "0.1")
         (author: "Igor Gnatenko, Stephen Gallagher, Adam Baxter")
         (about: "Chase down runtime/buildtime requirements")
@@ -194,7 +194,6 @@ fn main() {
             (about: "resolve command")
             (@arg PACKAGE: +required +multiple)
         )
-
     ).get_matches();
 
     let arch = matches.value_of("ARCH").unwrap();
