@@ -13,9 +13,9 @@ name = "libsolv_sys"
 path = "src/lib.rs"
 
 [dependencies]
-libc = "0.2.48"
+libc = "0.2.51"
 
 [build-dependencies]
-cc = { version = "1.0.29", features = ["parallel"] }
+cc = { version = "1.0.35", features = ["parallel"] }
 pkg-config = "0.3.14"
-bindgen = "0.47.1"
+bindgen = "0.49.0"

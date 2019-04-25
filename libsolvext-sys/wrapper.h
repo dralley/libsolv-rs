@@ -48,6 +48,10 @@
 #include <solv/repo_comps.h>
 #endif
 
+#ifdef LIBSOLVEXT_FEATURE_CONDA
+#include <solv/repo_conda.h>
+#endif
+
 #ifdef LIBSOLVEXT_FEATURE_DEBIAN
 #include <solv/repo_deb.h>
 #endif

@@ -19,6 +19,9 @@ pub mod suse;
 #[cfg(feature = "comps")]
 pub mod comps;
 
+#[cfg(feature = "conda")]
+pub mod conda;
+
 #[cfg(feature = "debian")]
 pub mod debian;
 
