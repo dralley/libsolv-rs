@@ -1,15 +1,17 @@
+use std::io;
+use std::io::Read;
 use std::fs::File;
-use std::path::Path;
 use std::ffi::CString;
+use std::mem;
+use std::os::unix::io::*;
+use std::path::Path;
+use std::ptr;
+
 use libc;
 use libc::FILE;
-use std::ptr;
-use std::os::unix::io::*;
-use std::io::Read;
-use std::io;
-use std::mem;
 
 use crate::errors::*;
+
 
 pub struct SolvFile {
     pub(crate) _fp: *mut FILE,

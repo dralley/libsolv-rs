@@ -1,9 +1,4 @@
 
-use libsolv_sys::Chksum as _Chksum;
-use libsolv_sys::Id;
-use libsolv_sys::solv_chksum_free;
-use libsolv_sys::solv_knownid;
-
 use std::convert::Into;
 use std::io::{Cursor, Seek, SeekFrom, Read, BufReader};
 use std::fs::File;
@@ -13,6 +8,11 @@ use std::mem;
 use std::slice;
 
 use libc;
+
+use libsolv_sys::Chksum as _Chksum;
+use libsolv_sys::Id;
+use libsolv_sys::solv_chksum_free;
+use libsolv_sys::solv_knownid;
 
 
 pub struct Chksum {
@@ -25,9 +25,8 @@ impl Chksum {
         let _c = unsafe{solv_chksum_create(id)};
         if _c.is_null() {
             panic!("libsolv returned null for solv_chksum_create(Id) with id {}", id);
-        } else {
-            Chksum{_c: _c}
         }
+        Chksum{_c: _c}
     }
 
     pub(crate) unsafe fn new_from(_c: *mut _Chksum) -> Chksum {

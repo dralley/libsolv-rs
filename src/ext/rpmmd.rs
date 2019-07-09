@@ -1,7 +1,10 @@
-use crate::repo::Repo;
-use libc;
 use std::ptr;
+
+use libc;
+
+use crate::repo::Repo;
 use crate::ext::solvfile::*;
+
 
 pub trait RpmMd {
 
@@ -25,7 +28,6 @@ impl RpmMd for Repo {
         let borrow = self.ctx.borrow_mut();
         unsafe {
             let r = repo_add_repomdxml(self._r, file._fp, 0);
-            println!("r: {}", r);
             r == 0
         }
     }

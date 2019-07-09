@@ -1,7 +1,7 @@
 use std::ffi::CString;
-use std::slice;
-use std::ptr;
 use std::marker;
+use std::ptr;
+use std::slice;
 
 use libc;
 
